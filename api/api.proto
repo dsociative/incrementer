@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package incrementer;
+option go_package = "api";
+
+service Incrementer {
+	// Returns a number from the database
+	rpc GetNumber(Empty) returns (Number);
+	// Sets the increment settings in the database
+	rpc SetSettings(Setting) returns (Empty);
+	// Increases the number in the database by the step specified in the settings
+	// If the result is greater than the Setting.maximum, the number is reset to zero.
+	rpc IncrementNumber(Empty) returns (Number);
+}
+
+message Empty {}
+
+message Number {
+	int64 number = 1;
+}
+
+message Setting {
+	int64 maximum = 1;
+	int64 step = 2;
+}

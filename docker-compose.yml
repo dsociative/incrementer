@@ -1,0 +1,13 @@
+version: '3'
+services:
+  incrementer:
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - redis
+    command:
+      - "--redis"
+      - "redis:6379"
+  redis:
+    image: redis
