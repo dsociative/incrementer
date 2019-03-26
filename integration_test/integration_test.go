@@ -158,7 +158,7 @@ func restartDBWithLossAllData(t *testing.T) {
 	// Start new redis container and check command error without initial settings
 	initRedisContainer()
 	n, err = client.IncrementNumber(context.Background(), &api.Empty{})
-	assert.Error(t, err)
+	assert.Errorf(t, err, "no initial settings")
 
 	// Set initial setting
 	_, err = client.SetSettings(context.Background(), &api.Setting{

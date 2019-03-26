@@ -15,7 +15,9 @@ var (
 		local step = redis.call("GET", KEYS[1])
 		local max = redis.call("GET", KEYS[2])
 		local value = redis.call("INCRBY", KEYS[3], step)
-		if value > tonumber(max) then
+		if step == 0 then
+			error("no initial settings")
+		elseif value > tonumber(max) then
 			redis.call("SET", KEYS[3], 0)
 			return 0
 		else
